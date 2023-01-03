@@ -16,7 +16,11 @@
 - First clone the repository
 ```sh
 git clone https://github.com/DOGAN2010/dogan-vprofile-project.git
+git branch local-setup
+git checkout local-setup
+
 ```
+
 
 - We need to go to directory that our Vagrantfile exists. Before we run our VBoxes using `vagrant`, we need to install below plugin.
 ```sh
@@ -522,6 +526,18 @@ vagrant destroy
 - Check Oracle VM VirtualBox Manager if Vms are destroyed.
 
 ![](images/vms-are-gone-after-vagrant-destroy.png)
+
+
+
+```
+git add .
+git commit -m "Project-1: Multi Tier Web Application Stack Setup Locally"
+git push --set-upstream origin local-setup
+git checkout main
+git merge local-setup
+git push origin main
+
+```
 
 
 
