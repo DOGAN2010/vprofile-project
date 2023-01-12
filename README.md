@@ -1114,7 +1114,7 @@ Target Tracking-CPU Utilization 50
 
 ```
 git add .
-git commit -m "Project-2: Automated Setup of Multi Tier App, Locally"
+git commit -m "Project-3: Lift and Shift Application Workload to AWS"
 git push --set-upstream origin aws-LiftAndShift
 git checkout main
 git merge aws-LiftAndShift
