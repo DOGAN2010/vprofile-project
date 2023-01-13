@@ -821,7 +821,7 @@ git push origin main
 ## Preparing Bash Scripts for VMs
 
 ```sh
-git checkout aws-LiftAndShift
+git checkout -b aws-LiftAndShift
 ```
 
 
@@ -989,12 +989,12 @@ format: json
 ```
 - Create bucket. Note: S3 buckets are global so the naming must be UNIQUE!
 ```sh
-aws s3 mb s3://vprofile-artifact-storage-rd 
+aws s3 mb s3://vprofile-artifact-storage-rdogan
 ```
 - Go to target directory and copy the artifact to bucket with below command. Then verify by listing objects in the bucket.
 ```sh
-aws s3 cp vprofile-v2.war s3://vprofile-artifact-storage-rd
-aws s3 ls vprofile-artifact-storage-rd
+aws s3 cp vprofile-v2.war s3://vprofile-artifact-storage-rdogan
+aws s3 ls vprofile-artifact-storage-rdogan
 ```
 - We can verify the same from AWS Console.
 ![](images/s3-created.png)
@@ -1025,8 +1025,8 @@ rm -rf ROOT
 - Next we will download our artifact from s3 using aws cli commands. First we need to install `aws cli`. We will initially download our artifact to `/tmp` directory, then we will copy it under `/var/lib/tomcat8/webapps/` directory as `ROOT.war`. Since this is the default app directory, Tomcat will extract the compressed file.
 ```sh
 apt install awscli -y
-aws s3 ls s3://vprofile-artifact-storage-rd
-aws s3 cp s3://vprofile-artifact-storage-rd/vprofile-v2.war /tmp/vprofile-v2.war
+aws s3 ls s3://vprofile-artifact-storage-rdogan
+aws s3 cp s3://vprofile-artifact-storage-rdogan/vprofile-v2.war /tmp/vprofile-v2.war
 cd /tmp
 cp vprofile-v2.war /var/lib/tomcat8/webapps/ROOT.war
 systemctl start tomcat8
@@ -1040,7 +1040,7 @@ cat /var/lib/tomcat8/webapps/ROOT/WEB-INF/classes/application.properties
 - We can validate network connectivity from server using `telnet`.
 ```sh
 apt install telnet
-telnet db01.vprofile.in 3306
+telnet db01.adogan.click 3306
 ```
 
 ### Step-8: Setup LoadBalancer
@@ -1106,6 +1106,7 @@ Target Tracking-CPU Utilization 50
 - If we terminate any instances we will see ASG will create a new one using LT that we created.
 
 ![](images/asg-provisioning-instance.png)
+![](images/tec.png)
 
 ### Step-11: Clean-up
 
