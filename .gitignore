@@ -1,7 +1,5 @@
 # Maven
-target/
-!.mvn/wrapper/maven-wrapper.jar
-
+target/vprofile-v2.war
 # Jenv
 .java-version
 
@@ -17,6 +15,8 @@ target/
 # Branch switching
 generated/
 
+.vscode
 #VS Code
 .factorypath
 .project
+.vscode
