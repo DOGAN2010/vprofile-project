@@ -86,7 +86,6 @@ pipeline {
                 }
             }    
         }
-
         stage('UPLOAD ARTIFACT') {
             steps {
                 nexusArtifactUploader(
@@ -105,7 +104,6 @@ pipeline {
                     ]
                 )
             }    
-
         }
     }
     post{
