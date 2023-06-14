@@ -36,13 +36,13 @@ pipeline {
             }
         }
 
-	stage('UNIT TEST'){
+	    stage('UNIT TEST'){
             steps {
                 sh 'mvn test'
             }
         }
 
-	stage('INTEGRATION TEST'){
+	    stage('INTEGRATION TEST'){
             steps {
                 sh 'mvn verify -DskipUnitTests'
             }
@@ -58,7 +58,7 @@ pipeline {
                 }
             }
         }
-
+    
         stage('CODE ANALYSIS with SONARQUBE') {
           
             environment {
@@ -86,7 +86,34 @@ pipeline {
                 }
             }    
         }
+
+        stage('UPLOAD ARTIFACT') {
+            steps {
+                nexusArtifactUploader(
+                    nexusVersion: 'nexus3',
+                    protocol: 'http',
+                    nexusUrl: "${NEXUSIP}:${NEXUSPORT}",
+                    groupId: 'QA',
+                    version: "${env.BUILD_ID}-${env.BUILD_TIMESTAMP}",
+                    repository: "${RELEASE_REPO}",
+                    credentialsId: ${NEXUS_LOGIN},
+                    artifacts: [
+                        [artifactId: 'vproapp' ,
+                        classifier: '',
+                        file: 'target/vprofile-v2.war',
+                        type: 'war']
+                    ]
+                )
+            }    
+
+        }
     }
-
-
+    post{
+        always {
+            echo 'Slack Notifications'
+            slackSend channel: '#jenkinscicd',
+                color: COLOR_MAP[currentBuild.currentResult],
+                message: "*${currentBuild.currentResult}:* Job ${env.JOB_NAME} build ${env.BUILD_NUMBER} \n More info at: ${env.BUILD_URL}"
+        }
+    }
 }
