@@ -46,6 +46,7 @@ pipeline {
                 sh 'mvn verify -DskipUnitTests'
             }
         }
+        
         stage ('CODE ANALYSIS WITH CHECKSTYLE'){
             steps {
                 sh 'mvn checkstyle:checkstyle'
@@ -56,6 +57,7 @@ pipeline {
                 }
             }
         }
+
         stage('CODE ANALYSIS with SONARQUBE') {
           
             environment {
@@ -76,6 +78,7 @@ pipeline {
 
             }
         }
+
         stage('QUALITY GATE') {
             steps {
                 timeout(time: 10, unit: 'MINUTES') {
@@ -104,7 +107,7 @@ pipeline {
             }    
         }
     }
-    
+
     post{
         always {
             echo 'Slack Notifications'
