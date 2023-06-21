@@ -57,6 +57,7 @@ pipeline {
                 }
             }
         }
+        
         stage('CODE ANALYSIS with SONARQUBE') {
           
             environment {
@@ -105,6 +106,7 @@ pipeline {
             }    
         }
     }
+
     post{
         always {
             echo 'Slack Notifications'
