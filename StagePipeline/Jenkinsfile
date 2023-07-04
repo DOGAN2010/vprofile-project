@@ -29,7 +29,7 @@ pipeline {
         SONARSCANNER = 'sonarscanner'
         registryCredential = 'ecr:us-east-1:awscreds'
         appRegistry = '434207267291.dkr.ecr.us-east-1.amazonaws.com/vprofileappimg'
-        vprofileRegistry = 'https://434207267291.dkr.ecr.us-east-1.amazonaws.com'
+        vprofileRegistry = "https://434207267291.dkr.ecr.us-east-1.amazonaws.com"
     }
 	
     stages{
@@ -117,7 +117,7 @@ pipeline {
         stage('Build App Image') {
             steps {
                 script {
-                    dockerImage = docker.build(appRegistry + ":$BUILD_NUMBER", "./Docker-files/app/multistage/")
+                    dockerImage = docker.build( appRegistry + ":$BUILD_NUMBER", "./Docker-files/app/multistage/")
                 }
             }    
         }
@@ -126,8 +126,8 @@ pipeline {
             steps {
                 script {
                     docker.withRegistry( vprofileRegistry, registryCredential ) {
-                        dockerImage.push("$BUILD_NUMBER")
-                        dockerImage.push("latest")
+                      dockerImage.push("$BUILD_NUMBER")
+                      dockerImage.push('latest')
                     }
                 }
             }    
