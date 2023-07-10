@@ -32,7 +32,8 @@ pipeline {
         vprofileRegistry = "https://434207267291.dkr.ecr.us-east-1.amazonaws.com"
     }
 	
-    stages{ 
+    stages{
+        
         stage('BUILD'){
             steps {
                 sh 'mvn clean install -DskipTests'
@@ -114,8 +115,7 @@ pipeline {
             }    
         } 
 
-    
-    }
+   }
     post{
         always {
             echo 'Slack Notifications'
