@@ -27,8 +27,7 @@ pipeline {
         ARTVERSION = "${env.BUILD_ID}"
         SONARSERVER = 'sonarserver'
         SONARSCANNER = 'sonarscanner'
-    }
-	
+    }	
     stages{
         
         stage('BUILD'){
