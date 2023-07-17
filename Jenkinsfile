@@ -92,6 +92,7 @@ pipeline {
                 }
             }    
         }
+        
         stage('UPLOAD ARTIFACT') {
             steps {
                 nexusArtifactUploader(
@@ -113,6 +114,7 @@ pipeline {
         } 
 
    }
+
     post{
         always {
             echo 'Slack Notifications'
