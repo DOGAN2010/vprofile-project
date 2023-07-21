@@ -29,8 +29,7 @@ pipeline {
         SONARSCANNER = 'sonarscanner'
     }
 	
-    stages{
-        
+    stages{   
         stage('BUILD'){
             steps {
                 sh 'mvn clean install -DskipTests'
@@ -48,6 +47,7 @@ pipeline {
                 sh 'mvn test'
             }
         }
+        
 	    stage('INTEGRATION TEST'){
             steps {
                 sh 'mvn verify -DskipUnitTests'
