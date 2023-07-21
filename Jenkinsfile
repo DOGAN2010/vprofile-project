@@ -48,6 +48,7 @@ pipeline {
                 sh 'mvn test'
             }
         }
+        
 	    stage('INTEGRATION TEST'){
             steps {
                 sh 'mvn verify -DskipUnitTests'
@@ -92,7 +93,7 @@ pipeline {
                 }
             }    
         }
-        
+
         stage('UPLOAD ARTIFACT') {
             steps {
                 nexusArtifactUploader(
@@ -113,7 +114,7 @@ pipeline {
             }    
         } 
 
-   }
+   }""
 
     post{
         always {
