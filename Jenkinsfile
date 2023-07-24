@@ -2,6 +2,7 @@ def COLOR_MAP = [
     'SUCCESS': 'GOOD',
     'FAILURE': 'danger',
 ]
+
 pipeline {
     
 	agent any
@@ -27,6 +28,9 @@ pipeline {
         ARTVERSION = "${env.BUILD_ID}"
         SONARSERVER = 'sonarserver'
         SONARSCANNER = 'sonarscanner'
+        registryCredential = 'ecr:us-east-1:awscreds'
+        appRegistry = "434207267291.dkr.ecr.us-east-1.amazonaws.com/vprofileappimg" 
+        vprofileRegistry = "https://434207267291.dkr.ecr.us-east-1.amazonaws.com"
     }
 	
     stages{   
@@ -111,8 +115,15 @@ pipeline {
                 )
             }    
         } 
+        stage('Build App image'){
+            steps{
+                script{
+                  dockerImage = docker.build( appRegistry + ":$BUILD_NUMBER", "./Docker-files/app/multistage/")
+                }
+            }
+        }
 
-    }
+   }
     post{
         always {
             echo 'Slack Notifications'
