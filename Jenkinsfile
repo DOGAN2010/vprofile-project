@@ -20,14 +20,14 @@ pipeline {
         NEXUS_PASS = '123'
         RELEASE_REPO = 'vprofile-release'
         CENTRAL_REPO = 'vpro-maven-central'
-        NEXUSIP = '3.234.221.11'
+        NEXUSIP = '172.31.64.132'
         NEXUSPORT = '8081'
         NEXUS_GRP_REPO = 'vpro-maven-group'
         NEXUS_LOGIN = 'nexuslogin'
         ARTVERSION = "${env.BUILD_ID}"
         SONARSERVER = 'sonarserver'
         SONARSCANNER = 'sonarscanner'
-    }	
+    }
 	
     stages{
         
@@ -48,7 +48,6 @@ pipeline {
                 sh 'mvn test'
             }
         }
-        
 	    stage('INTEGRATION TEST'){
             steps {
                 sh 'mvn verify -DskipUnitTests'
@@ -96,25 +95,24 @@ pipeline {
         stage('UPLOAD ARTIFACT') {
             steps {
                 nexusArtifactUploader(
-                  nexusVersion: 'nexus3',
-                  protocol: 'http',
-                  nexusUrl: "${NEXUSIP}:${NEXUSPORT}",
-                  groupId: 'QAa',
-                  version: "${env.BUILD_ID}-${env.BUILD_TIMESTAMP}",
-                  repository: "${RELEASE_REPO}",
-                  credentialsId: "${NEXUS_LOGIN}",
-                  artifacts: [
-                    [artifactId: 'vproapp',
-                     classifier: '',
-                     file: 'target/vprofile-v2.war',
-                     type: 'war']
-                  ]
+                    nexusVersion: 'nexus3',
+                    protocol: 'http',
+                    nexusUrl: "${NEXUSIP}:${NEXUSPORT}",
+                    groupId: 'QA',
+                    version: "${env.BUILD_ID}-${env.BUILD_TIMESTAMP}",
+                    repository: "${RELEASE_REPO}",
+                    credentialsId: "${NEXUS_LOGIN}",
+                    artifacts: [
+                        [artifactId: 'vproapp',
+                        classifier: '',
+                        file: 'target/vprofile-v2.war',
+                        type: 'war']
+                    ]
                 )
             }    
         } 
 
     }
-
     post{
         always {
             echo 'Slack Notifications'
