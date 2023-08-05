@@ -1,7 +1,7 @@
 FROM openjdk:8 AS BUILD_IMAGE
 RUN apt update && apt install maven -y
 RUN git clone https://github.com/DOGAN2010/vprofile-project.git
-RUN cd vprofile-project && git checkout ci-cd-jenkins && mvn install  
+RUN cd vprofile-project && git checkout ci-cd-jenkins && mvn test  
 #  && git checkout ci-cd-jenkins  -b ci-cd-jenkins
 
 FROM tomcat:8-jre11
