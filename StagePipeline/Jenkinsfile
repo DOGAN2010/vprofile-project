@@ -28,7 +28,7 @@ pipeline {
         ARTVERSION = "${env.BUILD_ID}"
         SONARSERVER = 'sonarserver'
         SONARSCANNER = 'sonarscanner'
-        registryCredential = 'ecr:us-east-1:awscreds'
+        registryCredential = 'ecr:us-east-1:awscred'
         appRegistry = "434207267291.dkr.ecr.us-east-1.amazonaws.com/vprofileappimg" 
         vprofileRegistry = "https://434207267291.dkr.ecr.us-east-1.amazonaws.com"
     }
